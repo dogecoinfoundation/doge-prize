@@ -27,13 +27,9 @@ function corsMiddleware(req: NextRequest) {
   
   // Allow requests from the same origin (for dogebox environment) or from localhost:3643 (for development)
   if (origin) {
-    const url = new URL(origin);
-    if (url.hostname === 'localhost' || url.hostname === req.nextUrl.hostname) {
+
       response.headers.set("Access-Control-Allow-Origin", origin);
-    }
-  } else {
-    // Fallback for development environment
-    response.headers.set("Access-Control-Allow-Origin", `http://localhost:3643`);
+
   }
   
   response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -154,6 +150,6 @@ export default withAuth(
 export const config = {
   matcher: [
     // Match all paths except static files
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!_next/static|_next/image|favicon.ico|uploads/).*)",
   ],
 }; 

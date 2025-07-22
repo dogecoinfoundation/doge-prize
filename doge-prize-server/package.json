@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "prisma db push && prisma generate && next dev -p 3644",
     "build": "prisma migrate deploy && prisma generate && next build",
-    "start": "next start -p 3644",
+    "start": "next start -p 3644 -H 0.0.0.0",
     "lint": "next lint",
     "init-db": "npx ts-node --project src/scripts/tsconfig.json src/scripts/init-db.ts",
     "reset-password": "npx ts-node --project src/scripts/tsconfig.json src/scripts/reset-password.ts",
