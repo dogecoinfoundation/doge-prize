@@ -1,0 +1,13 @@
+{
+  "id": "doge-prize.pups",
+  "name": "Doge Prize",
+  "description": "Doge Prize pups for Dogebox",
+  "pups": [
+    {
+      "location": "doge-prize-client"
+    },
+    {
+      "location": "doge-prize-server"
+    }
+  ]
+}

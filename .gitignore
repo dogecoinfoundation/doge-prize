@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Prisma
+**/prisma/libquery_engine-*
+**/prisma/*.d.ts
+**/prisma/*.js
+**/prisma/package.json
+**/prisma/runtime/**
+**/prisma/runtime/*
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Testing
+coverage/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+*.pem
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Deployment
+.vercel
+.netlify
+
+# Misc
+.DS_Store
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+
+# All result files
+result*
+# But include files with extensions
+!result*.*

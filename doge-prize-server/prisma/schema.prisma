@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Prize {
+  id                Int         @id @default(autoincrement())
+  redemptionCode    String      @unique
+  amount            Float
+  status            PrizeStatus @default(Available)
+  type              PrizeType   @default(Specific)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([redemptionCode], name: "Prize_redemptionCode_idx")
+}
+
+enum PrizeStatus {
+  Available
+  Redeemed
+  Transferred
+}
+
+enum PrizeType {
+  Specific
+  Random
+  Assigned
+}
+
+model PrizePool {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  quantity  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([amount])
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model AuditLog {
+  id          Int      @id @default(autoincrement())
+  action      String
+  entityType  String
+  entityId    Int
+  details     String?
+  createdAt   DateTime @default(now())
+}
+
+model ServerConfig {
+  id                Int      @id @default(autoincrement())
+  title             String?
+  subtitle          String?
+  pageTitle         String?
+  pageDescription   String?
+  prizeHeading      String?
+  serverHeading     String?
+  serverPlaceholder String?
+  redemptionCodeHeading String?
+  redemptionCodePlaceholder String?
+  redeemButtonText  String?
+  footerText        String?
+  footerTextPosition String? @default("below")
+  footerImage       String?
+  footerUrl         String?
+  backgroundImage   String?
+  logoImage         String?
+  showWave          Boolean  @default(false)
+  panelAlignment    String?  @default("left")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

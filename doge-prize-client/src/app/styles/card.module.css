@@ -1,0 +1,707 @@
+.panel {
+  @apply min-h-screen flex flex-col items-center justify-center p-4 mobile:p-0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: var(--font-comic-neue);
+}
+
+.panelLeft {
+  @apply min-h-screen flex flex-col items-start justify-center p-4 mobile:p-0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: var(--font-comic-neue);
+}
+
+.panelCenter {
+  @apply min-h-screen flex flex-col items-center justify-center p-4 mobile:p-0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: var(--font-comic-neue);
+}
+
+.panelRight {
+  @apply min-h-screen flex flex-col items-end justify-center p-4 mobile:p-0;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: var(--font-comic-neue);
+}
+
+@media (max-width: 430px) {
+  .panel,
+  .panelLeft,
+  .panelCenter,
+  .panelRight {
+    padding: 0;
+    justify-content: flex-start;
+    background-size: auto 300px;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-color: #201F1D;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+}
+
+.card {
+  @apply flex flex-col items-center justify-start w-[672px] p-[64px_24px_64px_24px] gap-8 rounded-[32px] border-2 border-[#333230] bg-[#201F1D];
+  box-shadow: 0px 32px 64px 0px rgba(0, 0, 0, 0.20), 
+              0px 16px 32px 0px rgba(0, 0, 0, 0.20), 
+              0px 8px 16px 0px rgba(0, 0, 0, 0.20), 
+              0px 4px 8px 0px rgba(0, 0, 0, 0.20), 
+              0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+  position: relative;
+  z-index: 2;
+  margin-left: 34px;
+  align-self: flex-start;
+}
+
+.cardLeft {
+  @apply flex flex-col items-center justify-start w-[672px] p-[64px_24px_64px_24px] gap-8 rounded-[32px] border-2 border-[#333230] bg-[#201F1D];
+  box-shadow: 0px 32px 64px 0px rgba(0, 0, 0, 0.20), 
+              0px 16px 32px 0px rgba(0, 0, 0, 0.20), 
+              0px 8px 16px 0px rgba(0, 0, 0, 0.20), 
+              0px 4px 8px 0px rgba(0, 0, 0, 0.20), 
+              0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+  position: relative;
+  z-index: 2;
+  margin-left: 34px;
+  align-self: flex-start;
+}
+
+.cardCenter {
+  @apply flex flex-col items-center justify-start w-[672px] p-[64px_24px_64px_24px] gap-8 rounded-[32px] border-2 border-[#333230] bg-[#201F1D];
+  box-shadow: 0px 32px 64px 0px rgba(0, 0, 0, 0.20), 
+              0px 16px 32px 0px rgba(0, 0, 0, 0.20), 
+              0px 8px 16px 0px rgba(0, 0, 0, 0.20), 
+              0px 4px 8px 0px rgba(0, 0, 0, 0.20), 
+              0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+  position: relative;
+  z-index: 2;
+  margin-left: 0;
+  align-self: center;
+}
+
+.cardRight {
+  @apply flex flex-col items-center justify-start w-[672px] p-[64px_24px_64px_24px] gap-8 rounded-[32px] border-2 border-[#333230] bg-[#201F1D];
+  box-shadow: 0px 32px 64px 0px rgba(0, 0, 0, 0.20), 
+              0px 16px 32px 0px rgba(0, 0, 0, 0.20), 
+              0px 8px 16px 0px rgba(0, 0, 0, 0.20), 
+              0px 4px 8px 0px rgba(0, 0, 0, 0.20), 
+              0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+  position: relative;
+  z-index: 2;
+  margin-right: 34px;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .card,
+  .cardLeft,
+  .cardCenter,
+  .cardRight {
+    margin-left: 0;
+    margin-right: 0;
+    align-self: center;
+    width: 90%;
+    max-width: 672px;
+    height: auto;
+    min-height: auto;
+  }
+
+  .title {
+    font-size: 32px !important;
+    line-height: 40px !important;
+  }
+
+  .subtitle {
+    font-size: 24px !important;
+    line-height: 32px !important;
+  }
+
+  .description {
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
+
+  .inputTitle {
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
+
+  .inputField {
+    font-size: 16px !important;
+    line-height: 24px !important;
+    padding: 12px !important;
+    padding-right: 50px !important;
+  }
+
+  .lookInsideButton {
+    height: 56px !important;
+    font-size: 18px !important;
+    line-height: 24px !important;
+    padding: 12px 24px !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .card,
+  .cardLeft,
+  .cardCenter,
+  .cardRight {
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 32px 16px;
+    margin-top: 220px;
+    flex: 1;
+    position: sticky;
+    bottom: 0;
+    border-width: 0px;
+  }
+
+  .contentPanel {
+    padding: 0;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .card:not(.congratulationsScreen) .contentPanel,
+  .cardLeft:not(.congratulationsScreen) .contentPanel,
+  .cardCenter:not(.congratulationsScreen) .contentPanel,
+  .cardRight:not(.congratulationsScreen) .contentPanel {
+    justify-content: flex-start;
+    margin-top: -100px;
+  }
+
+  .card.congratulationsScreen .contentPanel,
+  .cardLeft.congratulationsScreen .contentPanel,
+  .cardCenter.congratulationsScreen .contentPanel,
+  .cardRight.congratulationsScreen .contentPanel {
+    justify-content: center;
+  }
+
+  .presentContainer {
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .presentContainer::before {
+    content: '';
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background-color: #201F1D;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .presentAnimation {
+    position: relative;
+    z-index: 2;
+  }
+
+  .footerContainer {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .starsContainer,
+  .starsBackground,
+  .coinsImage {
+    width: 80px !important;
+    height: 80px !important;
+  }
+}
+
+.cardHeight {
+  height: 940px;
+  padding-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .cardHeight {
+    height: auto;
+    min-height: auto;
+  }
+}
+
+.contentPanel {
+  @apply flex flex-col items-center w-[400px] max-w-full;
+  position: relative;
+  height: 100%;
+}
+
+.presentContainer {
+  margin-bottom: 32px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .presentContainer {
+    margin-bottom: 0;
+  }
+}
+
+.presentAnimation {
+  transform-origin: center 75%;
+}
+
+.starsContainer {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.starsBackground {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  z-index: 1;
+}
+
+.coinsImage {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  z-index: 2;
+}
+
+.prizeAnimationContainer {
+  width: 350px;
+  height: 350px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .prizeAnimationContainer {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 430px) {
+  .prizeAnimationContainer {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+@media (max-width: 375px) {
+  .prizeAnimationContainer {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  .prizeAnimationContainer {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.footerContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 115px;
+  padding-top: 16px;
+}
+
+.footerContainerDesktop {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .contentPanel {
+    min-height: 100%;
+    padding: 16px;
+    gap: 24px;
+  }
+
+  .footerContainer {
+    position: relative;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .footerContainerDesktop {
+    display: none;
+  }
+
+  .starsContainer {
+    width: 120px;
+    height: 120px;
+  }
+
+  .starsBackground {
+    width: 120px;
+    height: 120px;
+  }
+
+  .coinsImage {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 769px) {
+  .footerContainer {
+    display: none;
+  }
+}
+
+.successPopup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+.successPopupContent {
+  background-color: #1A1A1A;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  width: 645px;
+  padding: 64px 80px;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1/1;
+}
+
+.title {
+  @apply text-white text-center font-bold mb-0;
+  font-family: var(--font-montserrat);
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.subtitle {
+  @apply text-[#E3A849] text-center mt-0;
+  font-size: 32px;
+  line-height: 40px;
+  font-style: normal;
+}
+
+.description {
+  @apply text-white text-center;
+  font-size: 20px;
+  line-height: 28px;
+  font-style: normal;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .description {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .description {
+    margin-bottom: 0;
+  }
+}
+
+.inputTitle {
+  @apply text-white font-bold w-full mb-2;
+  font-size: 20px;
+  line-height: 28px;
+  font-style: normal;
+}
+
+.inputField {
+  @apply w-full rounded-lg border-2 border-[#333230] bg-[#151413];
+  color: #878685;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  padding: 16px;
+  padding-right: 60px;
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus {
+  @apply outline-none border-white;
+}
+
+.validInput {
+  @apply border-green-500;
+}
+
+.validInput:focus {
+  @apply border-green-500;
+}
+
+.invalidInput {
+  @apply border-red-500;
+}
+
+.invalidInput:focus {
+  @apply border-red-500;
+}
+
+.inputField::placeholder {
+  color: #878685;
+}
+
+.lookInsideButton {
+  @apply flex justify-center items-center gap-2 w-full rounded-[100px] bg-[#580DA9] text-white border-none cursor-pointer;
+  height: 64px;
+  padding: 16px 32px;
+  font-family: var(--font-comic-neue);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 28px;
+  transition: background-color 0.2s;
+}
+
+.lookInsideButton:hover {
+  background: #4A0B8F;
+}
+
+.lookInsideButton:disabled {
+  background: #333230;
+  cursor: not-allowed;
+}
+
+.footerText {
+  color: #FFF;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.sponsorLogo {
+  width: 120px;
+  height: 40px;
+  background: #333230;
+  border-radius: 4px;
+}
+
+.logo {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 1;
+  width: 701.726px;
+  height: 703px;
+  flex-shrink: 0;
+  aspect-ratio: 701.73/703.00;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    display: none;
+  }
+}
+
+.validationIndicator {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--validation-color);
+  font-family: var(--font-comic-neue);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  z-index: 10;
+}
+
+.congratulations {
+  color: #FFF;
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.prizeAmount {
+  color: #FFF;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.prizeSymbol {
+  color: #E3A849;
+}
+
+.transferDescription {
+  color: #FFF;
+  text-align: center;
+  font-family: var(--font-comic-neue);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  font-style: normal;
+}
+
+.redemptionTitle {
+  color: #FFF;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  margin-bottom: 16px;
+}
+
+.redemptionOptionTitle {
+  color: #FFF;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  margin-bottom: 8px;
+}
+
+.advancedOptions {
+  color: #E3A849;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 800;
+  width: 100%;
+}
+
+.advancedOptions:hover {
+  opacity: 0.8;
+}
+
+.privateKeyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  color: #E3A849;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.copyButton {
+  background: none;
+  border: none;
+  color: #E3A849;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.copyButton:hover {
+  opacity: 0.8;
+}
+
+.privateKeyContainer {
+  border-radius: 32px;
+  background: #151413;
+  padding: 16px;
+  margin-top: 8px;
+  word-break: break-all;
+  font-family: monospace;
+  color: #FFF;
+}
+
+.walletInspectHeader {
+  color: #E3A849;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 24px;
+}
+
+.walletInspectLink {
+  color: #E3A849;
+  text-decoration: none;
+  display: block;
+  margin-top: 8px;
+  padding: 12px 16px;
+  border-radius: 32px;
+  background: #151413;
+  font-size: 14px;
+}
+
+.walletInspectLink:hover {
+  opacity: 0.8;
+}
+
+.presentImage {
+  width: 160px;
+  height: 160px;
+}
+
+@media (max-width: 768px) {
+  .presentImage {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 430px) {
+  .presentImage {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.congratulationsScreen {
+  background-color: #201F1D;
+}
+
+@media (max-width: 430px) {
+  .congratulationsScreen {
+    border-radius: 0;
+    margin-top: 0;
+    min-height: 100vh;
+    background-color: #201F1D;
+  }
+}

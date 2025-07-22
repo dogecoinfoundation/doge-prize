@@ -1,0 +1,61 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "Doge Prize Server",
+    "version": "1.0.0",
+    "logoPath": "logo.png",
+    "shortDescription": "A Dogecoin prize system server",
+    "longDescription": "Doge prize server allows users to manage Dogecoin prizes for redemption",
+    "upstreamVersions": null
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "e7851ba5d56914d3aafc7602c94baf76d57df623884e7c820cbea1990cb54618"
+    },
+    "services": [
+      {
+        "name": "doge-prize-server",
+        "command": {
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
+        }
+      }
+    ],
+    "exposes": [
+      {
+        "name": "UI",
+        "type": "http",
+        "port": 3644,
+        "interfaces": [
+          "doge-prize-server-public"
+        ],
+        "listenOnHost": true,
+        "webUI": true
+      }
+    ],
+    "requiresInternet": true
+  },
+  "interfaces": null,
+  "dependencies": [
+    {
+      "interfaceName": "core-rpc",
+      "interfaceVersion": "0.0.1",
+      "permissionGroups": [
+        "RPC"
+      ],
+      "source": {
+        "sourceLocation": "",
+        "pupName": "",
+        "pupVersion": "",
+        "pupLogoBase64": ""
+      },
+      "optional": false
+    }
+  ],
+  "metrics": null
+}

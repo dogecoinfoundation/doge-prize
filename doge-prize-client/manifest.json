@@ -1,0 +1,46 @@
+{
+  "manifestVersion": 1,
+  "meta": {
+    "name": "Doge Prize",
+    "version": "1.0.0",
+    "logoPath": "logo.png",
+    "shortDescription": "A Dogecoin prize system client",
+    "longDescription": "Doge prize client allows users to redeem Dogecoin prizes from Doge Prize Servers",
+    "upstreamVersions": null
+  },
+  "config": {
+    "sections": null
+  },
+  "container": {
+    "build": {
+      "nixFile": "pup.nix",
+      "nixFileSha256": "a8ea2668ca5de5f3ced4d0a57516713a54d0dc606deac7984eddb26b631af459"
+    },
+    "services": [
+      {
+        "name": "doge-prize-client",
+        "command": {
+          "exec": "/bin/run.sh",
+          "cwd": "",
+          "env": null
+        }
+      }
+    ],
+    "exposes": [
+      {
+        "name": "UI",
+        "type": "http",
+        "port": 3643,
+        "interfaces": [
+          "doge-prize-client-public"
+        ],
+        "listenOnHost": true,
+        "webUI": true
+      }
+    ],
+    "requiresInternet": true
+  },
+  "interfaces": null,
+  "dependencies": [],
+  "metrics": null
+}

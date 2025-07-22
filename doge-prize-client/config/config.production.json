@@ -1,0 +1,20 @@
+{
+    "title": "Doge Prize",
+    "subtitle": "Prizes in Dogecoin!",
+    "pageTitle": "Doge Prize",
+    "pageDescription": "Redeem your Dogecoin prizes. Enter your redemption code to claim your Ð rewards!",
+    "prizeHeading": "Enter your code below to reveal your prize!",
+    "serverHeading": "Server address",
+    "serverPlaceholder": "Enter Server address",
+    "redemptionCodeHeading": "Redemption Code",
+    "redemptionCodePlaceholder": "Enter redemption code",
+    "redeemButtonText": "Look inside",
+    "footerText": "Do Only Good Everyday",
+    "footerTextPosition": "below",
+    "footerImage": "/footer.png",
+    "footerUrl": "https://dogecoin.com",
+    "backgroundImage": "/background.png",
+    "logoImage": "",
+    "showWave": false,
+    "panelAlignment": "left"
+} 
