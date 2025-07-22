@@ -59,6 +59,10 @@ interface WalletInfo {
   pendingBalance: number;
   totalBalance: number;
   addresses: string[];
+  lastUpdated?: string;
+  responseTime?: string;
+  blockHeight?: number | null;
+  syncProgress?: number | null;
 }
 
 interface RequiredBalance {
@@ -67,6 +71,8 @@ interface RequiredBalance {
   specificPrizesBalance: number;
   activeRandomPrizesCount: number;
   prizePoolTotal: number;
+  lastUpdated?: string;
+  responseTime?: string;
 }
 
 interface PrizePoolEntry {
@@ -86,6 +92,7 @@ export default function Home() {
   const [requiredBalance, setRequiredBalance] = useState<RequiredBalance | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshingBalance, setRefreshingBalance] = useState(false);
   const [newPrize, setNewPrize] = useState<NewPrize>({
     amount: '',
     redemptionCode: '',
@@ -141,11 +148,22 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
+      const timestamp = Date.now();
       const [prizesResponse, auditLogsResponse, walletResponse, requiredBalanceResponse, prizePoolResponse] = await Promise.all([
         fetch(`/api/prizes`),
         fetch(`/api/audit`),
-        fetch(`/api/wallet/balance`),
-        fetch(`/api/prizes/required-balance`),
+        fetch(`/api/wallet/balance?t=${timestamp}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          }
+        }),
+        fetch(`/api/prizes/required-balance?t=${timestamp}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          }
+        }),
         fetch(`/api/prize-pool`)
       ]);
 
@@ -192,6 +210,65 @@ export default function Home() {
       console.error('Error fetching data:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');
       setLoading(false);
+    }
+  };
+
+  const refreshBalance = async () => {
+    setRefreshingBalance(true);
+    console.log('Starting balance refresh...');
+    
+    try {
+      // Add cache-busting parameter to force fresh requests
+      const timestamp = Date.now();
+      console.log('Cache-busting timestamp:', timestamp);
+      
+      const walletResponse = await fetch(`/api/wallet/balance?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        }
+      });
+      const requiredBalanceResponse = await fetch(`/api/prizes/required-balance?t=${timestamp}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache',
+        }
+      });
+      
+      console.log('Refresh balance - wallet response status:', walletResponse.status);
+      console.log('Refresh balance - required balance response status:', requiredBalanceResponse.status);
+      
+      // Handle wallet info response
+      let walletData = null;
+      if (walletResponse.ok) {
+        walletData = await walletResponse.json();
+        console.log('New wallet data timestamp:', walletData?.lastUpdated);
+        console.log('Available Balance:', walletData?.availableBalance);
+        console.log('Pending Balance:', walletData?.pendingBalance);
+      } else {
+        console.error('Wallet response error:', walletResponse.status, walletResponse.statusText);
+      }
+      
+      // Handle required balance response
+      let requiredBalanceData = null;
+      if (requiredBalanceResponse.ok) {
+        requiredBalanceData = await requiredBalanceResponse.json();
+        console.log('New required balance timestamp:', requiredBalanceData?.lastUpdated);
+        console.log('Required Balance:', requiredBalanceData?.requiredBalance);
+      } else {
+        console.error('Required balance response error:', requiredBalanceResponse.status, requiredBalanceResponse.statusText);
+      }
+
+      console.log('Updating state with new balance data...');
+      setWalletInfo(walletData);
+      setRequiredBalance(requiredBalanceData);
+      console.log('Balance refresh completed successfully!');
+      
+    } catch (err) {
+      console.error('Error refreshing balance:', err);
+      setError(err instanceof Error ? err.message : 'Failed to refresh balance');
+    } finally {
+      setRefreshingBalance(false);
     }
   };
 
@@ -632,7 +709,42 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="bg-[#201F1D] rounded-2xl shadow-lg p-6 border-2 border-[#333230]"
             >
-              <h2 className="text-2xl font-bold text-white mb-4">Balances</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-2xl font-bold text-white">Balances</h2>
+                <button
+                  onClick={refreshBalance}
+                  disabled={refreshingBalance}
+                  className="bg-[#E3A849] hover:bg-[#D4972A] disabled:bg-[#333230] disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+                >
+                  {refreshingBalance && (
+                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
+                  {refreshingBalance ? 'Refreshing All Balances...' : 'Refresh All Balances'}
+                </button>
+              </div>
+              
+              {(walletInfo?.lastUpdated || requiredBalance?.lastUpdated) && (
+                <div className="mb-4 text-sm text-gray-400">
+                  Balances updated: {new Date((walletInfo?.lastUpdated || requiredBalance?.lastUpdated)!).toLocaleString()}
+                  {(walletInfo?.responseTime || requiredBalance?.responseTime) && (
+                    <span>
+                      {` (`}
+                      {walletInfo?.responseTime && `Wallet: ${walletInfo.responseTime}`}
+                      {walletInfo?.responseTime && requiredBalance?.responseTime && `, `}
+                      {requiredBalance?.responseTime && `Required: ${requiredBalance.responseTime}`}
+                      {`)`}
+                    </span>
+                  )}
+                  {walletInfo?.blockHeight && ` • Block: ${walletInfo.blockHeight}`}
+                  {walletInfo?.syncProgress && walletInfo.syncProgress < 1 && 
+                    ` • Sync: ${(walletInfo.syncProgress * 100).toFixed(1)}%`
+                  }
+                </div>
+              )}
+              
               <div className="overflow-x-auto">
                 <table className="min-w-full border-2 border-[#333230] rounded-lg">
                   <thead>
@@ -651,17 +763,17 @@ export default function Home() {
                       className="border-b-2 border-[#333230]"
                     >
                       <td className="py-3 px-4 text-white">
-                        <div className="font-mono text-sm">
+                        <div className={`font-mono text-sm transition-all duration-300 ${refreshingBalance ? 'opacity-50 animate-pulse' : ''}`}>
                           {walletInfo ? `Ð ${walletInfo.availableBalance.toFixed(8)}` : 'Loading...'}
                         </div>
                       </td>
                       <td className="py-3 px-4 text-white">
-                        <div className="font-mono text-sm">
+                        <div className={`font-mono text-sm transition-all duration-300 ${refreshingBalance ? 'opacity-50 animate-pulse' : ''}`}>
                           {walletInfo ? `Ð ${walletInfo.pendingBalance.toFixed(8)}` : 'Loading...'}
                         </div>
                       </td>
                       <td className="py-3 px-4 text-white">
-                        <div className={`font-mono text-sm ${
+                        <div className={`font-mono text-sm transition-all duration-300 ${refreshingBalance ? 'opacity-50 animate-pulse' : ''} ${
                           walletInfo && requiredBalance 
                             ? walletInfo.availableBalance >= requiredBalance.requiredBalance
                               ? 'text-green-400'
@@ -695,6 +807,19 @@ export default function Home() {
                   </tbody>
                 </table>
               </div>
+              
+              {walletInfo?.syncProgress && walletInfo.syncProgress < 0.99 && (
+                <div className="mt-4 p-3 bg-yellow-900/30 border border-yellow-700 text-yellow-200 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="m12 2v4m0 12v4m10-10h-4m-12 0h-4"></path>
+                    </svg>
+                    Dogecoin node is syncing ({(walletInfo.syncProgress * 100).toFixed(1)}% complete). Balance may not reflect recent transactions until sync is complete.
+                  </div>
+                </div>
+              )}
+              
               {prizes.filter(p => p.type === 'Random' && p.status !== 'Transferred').length > prizePool.reduce((sum, entry) => sum + entry.quantity, 0) && (
                 <div className="mt-4 p-3 bg-red-900/30 border border-red-700 text-red-200 rounded-lg">
                   Random Prize Pool is over allocated, add more prizes or remove some redemption codes
